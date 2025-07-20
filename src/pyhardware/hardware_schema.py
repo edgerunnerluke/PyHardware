@@ -101,6 +101,19 @@ class EngineRecommendation(BaseModel):
     reason: str = Field(..., description="Reason for the recommendation")
 
 
+class OptimalInferenceEngine(BaseModel):
+    """Optimal inference engine recommendation with dependencies."""
+    name: str = Field(..., description="Name of the recommended inference engine")
+    dependencies: List[str] = Field(..., description="List of Python libraries needed to use this inference engine")
+    reason: str = Field(..., description="Reason why this inference engine was selected")
+    
+    class Config:
+        """Pydantic configuration."""
+        extra = "allow"
+        use_enum_values = True
+        validate_assignment = True
+
+
 class HardwareProfile(BaseModel):
     """
     Complete hardware profile from HardwareInspector.inspect_all().
