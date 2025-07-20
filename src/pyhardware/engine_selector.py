@@ -318,6 +318,10 @@ class HardwareInspector:
 
     def _get_amd_gpus(self):
         """Gathers AMD GPU details and checks for ROCm compatibility using amdsmi."""
+        # Skip AMD detection on macOS as it doesn't have AMD GPUs
+        if self.hw_info["os"]["platform"] == "Darwin":
+            return
+            
         amd_gpus_list = []
         amdsmi = self._safe_import("amdsmi")
         if amdsmi:
